@@ -36,7 +36,7 @@ namespace ButterfliesHunter
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddTransient<IHunterRepository, HunterService>();
+            services.AddTransient<IHunterRepository, DbHunterService>();
 
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -64,7 +64,7 @@ namespace ButterfliesHunter
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Hunters}/{action=Index}/{id?}");
             });
         }
     }

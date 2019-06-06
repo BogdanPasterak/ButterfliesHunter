@@ -21,7 +21,7 @@ namespace ButterfliesHunter.Models
 
         public IEnumerable<Hunter> GetHunters()
         {
-            return _hunters;
+            return _hunters.OrderBy(h => h.Name);
         }
     }
 }
