@@ -15,6 +15,7 @@ namespace ButterfliesHunter.Areas.Identity
         public void Configure(IWebHostBuilder builder)
         {
             builder.ConfigureServices((context, services) => {
+                services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<AppDbContext>();
             });
         }
     }
