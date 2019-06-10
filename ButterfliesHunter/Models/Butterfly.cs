@@ -30,6 +30,8 @@ namespace ButterfliesHunter.Models
         [Required]
         public int HunterId { get; set; }
 
+        [Required]
+        [StringLength(2000)]
         public string Description { get; set; }
 
     }
