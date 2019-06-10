@@ -26,6 +26,7 @@ namespace ButterfliesHunter.Models
         public bool IsProceted { get; set; }
 
         [Required]
+        [StringLength(2000)]
         public string Description { get; set; }
 
     }
