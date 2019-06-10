@@ -14,14 +14,14 @@ namespace ButterfliesHunter.Models
             _appDbContext = appDbContext;
         }
 
-        public Hunter GetHunter(int id)
-        {
-            return _appDbContext.Hunters.FirstOrDefault(h => h.HunterId == id);
-        }
-
         public IEnumerable<Hunter> GetHunters()
         {
             return _appDbContext.Hunters.OrderBy(h => h.Name);
+        }
+
+        public Hunter GetHunter(int id)
+        {
+            return _appDbContext.Hunters.FirstOrDefault(h => h.HunterId == id);
         }
     }
 }
