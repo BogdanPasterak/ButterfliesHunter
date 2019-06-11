@@ -45,6 +45,7 @@ namespace ButterfliesHunter
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddTransient<IHunterRepository, DbHunterService>();
+            services.AddTransient<IButterflyRepository, DbButterflyService>();
 
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
