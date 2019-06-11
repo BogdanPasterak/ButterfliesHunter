@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -33,6 +34,12 @@ namespace ButterfliesHunter
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.Configure<IdentityOptions>(options => {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 4;
+                options.Password.RequireNonAlphanumeric = false;
+                options.User.RequireUniqueEmail = true;
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
@@ -60,6 +67,7 @@ namespace ButterfliesHunter
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
