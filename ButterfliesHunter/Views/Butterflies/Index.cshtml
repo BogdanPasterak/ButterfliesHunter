@@ -78,14 +78,12 @@
         </div>
     </div>
     <br />
-    
-    @foreach (var butterfly in Model)
-    {
-        <div class="card">
-            <img src="@butterfly.ImgURL" alt="Butterfly image" />
-            <div class="card-body">
-                <h5 class="card-title">@butterfly.Name</h5>
+    <div class="row">
+        @for (int i = 3; i < list.Count; i++)
+        {
+            <div class="col-sm-3">
+                <partial name="_Card" model="@list[@i]" />
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>
