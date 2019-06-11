@@ -34,10 +34,9 @@ namespace ButterfliesHunter
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.Configure<IdentityOptions>(options =>
-            {
-                options.Password.RequireDigit = true;
-                options.Password.RequiredLength = 8;
+            services.Configure<IdentityOptions>(options => {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 4;
                 options.Password.RequireNonAlphanumeric = false;
                 options.User.RequireUniqueEmail = true;
             });
@@ -69,6 +68,7 @@ namespace ButterfliesHunter
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
