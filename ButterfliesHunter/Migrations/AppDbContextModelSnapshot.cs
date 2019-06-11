@@ -31,6 +31,8 @@ namespace ButterfliesHunter.Migrations
                         .IsRequired()
                         .HasMaxLength(2000);
 
+                    b.Property<string>("ImgURL");
+
                     b.Property<bool>("IsProtected");
 
                     b.Property<string>("Name")
@@ -40,8 +42,6 @@ namespace ButterfliesHunter.Migrations
                     b.Property<string>("Range");
 
                     b.Property<int>("Ranking");
-
-                    b.Property<string>("imgURL");
 
                     b.HasKey("Id");
 
