@@ -72,7 +72,7 @@ namespace ButterfliesHunter
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Hunters}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
