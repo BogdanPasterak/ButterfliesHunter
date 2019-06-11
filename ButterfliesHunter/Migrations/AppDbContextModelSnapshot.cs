@@ -41,6 +41,8 @@ namespace ButterfliesHunter.Migrations
 
                     b.Property<int>("Ranking");
 
+                    b.Property<string>("imgURL");
+
                     b.HasKey("Id");
 
                     b.ToTable("Butterflies");

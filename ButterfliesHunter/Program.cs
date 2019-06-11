@@ -29,7 +29,7 @@ namespace ButterfliesHunter
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine(ex.Message);
+                    Debug.WriteLine("------------------------------------------" + ex.Message);
                 }
             }
             host.Run();

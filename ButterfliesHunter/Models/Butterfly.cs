@@ -34,5 +34,7 @@ namespace ButterfliesHunter.Models
         [StringLength(2000)]
         public string Description { get; set; }
 
+        public string ImgURL { get; set; }
+
     }
 }
