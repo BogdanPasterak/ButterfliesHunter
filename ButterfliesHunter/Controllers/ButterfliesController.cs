@@ -42,8 +42,8 @@ namespace ButterfliesHunter.Controllers
                                 .FindAll(b => b.IsProtected == (protect ?? true))
                                 .OrderBy(b => b.Ranking).Reverse());
                 case 4:
-                    // match all author maile
-                    return View(_context.Butterflies.ToList().FindAll(b => ! b.IsProtected)
+                    int idH = _context.Hunters.FirstOrDefault(h => h.Email == author).HunterId;
+                    return View(_context.Butterflies.ToList().FindAll(b => b.AuthorId == idH)
                                 .OrderBy(b => b.Ranking).Reverse());
                 case 5:
                     return View(_context.Butterflies.ToList().OrderBy(b => b.Ranking).Reverse().Take(10));
