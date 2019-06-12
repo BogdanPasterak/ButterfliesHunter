@@ -5,12 +5,13 @@
 @*
     View for single butterfly card
 *@
-
-<h5 class="name-fly">@Model.Name</h5>
-<img src="@Model.ImgURL" alt="Butterfly image" class="img-thumbnail full-width" />
+<div>
+    <h5 class="name-fly">@Model.Name</h5>
+    <img src="@Model.ImgURL" alt="Butterfly image" class="img-thumbnail full-width" />
+    @if (Model.IsProtected)
+    {
+        <p class="is-protect">Protected</p>
+    }
+</div>
 <p>Ranking   : @Model.Ranking.ToString()</p>
 <p>Author ID : @Model.AuthorId.ToString()</p>
-@if (Model.IsProtected)
-{
-    <p class="text-danger">Protected</p>
-}
