@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ButterfliesHunter.Models;
+using System.Diagnostics;
 
 namespace ButterfliesHunter.Controllers
 {
@@ -19,9 +20,27 @@ namespace ButterfliesHunter.Controllers
         }
 
         // GET: Butterflies
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int? id, int? author)
         {
-            return View(await _context.Butterflies.ToListAsync());
+            Debug.WriteLine("-------------------------->" + author + "<");
+    
+            switch (id ?? 0)
+            {
+                case 0: // default order by Ranking, reverse
+                    return View(_context.Butterflies.ToList());
+                case 1:
+                    return View(_context.Butterflies.ToList().OrderBy(b => b.Name));
+                case 2:
+                    return View(_context.Butterflies.ToList().OrderBy(b => b.AuthorId));
+                case 3:
+                    return View(_context.Butterflies.ToList().FindAll(b => b.IsProtected).OrderBy(b => b.Ranking).Reverse());
+                case 4:
+                    return View(_context.Butterflies.ToList().FindAll(b => b.IsProtected).OrderBy(b => b.Ranking).Reverse());
+                case 5:
+                    return View(_context.Butterflies.ToList().FindAll(b => b.IsProtected).OrderBy(b => b.Ranking).Reverse());
+                default:
+                    return View(_context.Butterflies.ToList());
+            }
         }
 
         // GET: Butterflies/Details/5

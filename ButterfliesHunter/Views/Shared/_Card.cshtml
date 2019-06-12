@@ -8,4 +8,9 @@
 
 <h5 class="name-fly">@Model.Name</h5>
 <img src="@Model.ImgURL" alt="Butterfly image" class="img-thumbnail full-width" />
-
+<p>Ranking   : @Model.Ranking.ToString()</p>
+<p>Author ID : @Model.AuthorId.ToString()</p>
+@if (Model.IsProtected)
+{
+    <p class="text-danger">Protected</p>
+}

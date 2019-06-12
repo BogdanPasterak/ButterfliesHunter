@@ -11,8 +11,31 @@
                             <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                         </td>
 *@
+<div class="row">
+    <div class="col-6">
+        <h3>Order By ...</h3>
+    </div>
+    <div class="col-6">
+        <h3>Filter ...</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6 btn-group" role="group" aria-label="Order group">
+        <a asp-route-id="0" class="btn btn-info">Ranking</a>
+        <a asp-route-id="1" class="btn btn-info">Name</a>
+        <a asp-route-id="2" class="btn btn-info">Author</a>
+    </div>
+    <div class="col-6 btn-group" role="group" aria-label="Filter group">
+        <a asp-route-id="3" class="btn btn-info">Protected</a>
+        <a asp-route-id="4" class="btn btn-info">My</a>
+        <a asp-route-id="5" class="btn btn-info">Top 10</a>
+    </div>
+</div>
+
 @{List<Butterfly> list = Model.ToList(); }
-<div>
+@if (@list.Count > 0)
+{
     <div class="row">
         <div class="col-sm-4">
             <partial name="_Card" model="@list[0]" />
@@ -33,4 +56,10 @@
             </div>
         }
     </div>
-</div>
+
+}
+else
+{
+    <h2>No Butterfly</h2>
+}
+

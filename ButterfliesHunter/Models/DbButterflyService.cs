@@ -16,7 +16,7 @@ namespace ButterfliesHunter.Models
 
         public IEnumerable<Butterfly> GetButterflies()
         {
-            return _appDbContext.Butterflies;
+            return _appDbContext.Butterflies.OrderBy(b => b.Ranking).Reverse();
         }
 
         public Butterfly GetButterfly(int id)
