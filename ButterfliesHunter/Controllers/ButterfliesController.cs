@@ -20,24 +20,33 @@ namespace ButterfliesHunter.Controllers
         }
 
         // GET: Butterflies
-        public IActionResult Index(int? id, int? author)
+        public IActionResult Index(int? id, string author, bool? protect)
         {
-            Debug.WriteLine("-------------------------->" + author + "<");
-    
+            Debug.WriteLine("-------------------Id->" + id + "<");
+            Debug.WriteLine("---------------Protect->" + protect + "<");
+            Debug.WriteLine("---------------------Author->" + author + "<");
+
+
+
             switch (id ?? 0)
             {
                 case 0: // default order by Ranking, reverse
-                    return View(_context.Butterflies.ToList());
+                    return View(_context.Butterflies.ToList().OrderBy(b => b.Ranking).Reverse());
                 case 1:
                     return View(_context.Butterflies.ToList().OrderBy(b => b.Name));
                 case 2:
-                    return View(_context.Butterflies.ToList().OrderBy(b => b.AuthorId));
+                    return View(_context.Butterflies.ToList().OrderBy(b => b.Ranking).Reverse()
+                                .OrderBy(b => b.AuthorId));
                 case 3:
-                    return View(_context.Butterflies.ToList().FindAll(b => b.IsProtected).OrderBy(b => b.Ranking).Reverse());
+                    return View(_context.Butterflies.ToList()
+                                .FindAll(b => b.IsProtected == (protect ?? true))
+                                .OrderBy(b => b.Ranking).Reverse());
                 case 4:
-                    return View(_context.Butterflies.ToList().FindAll(b => b.IsProtected).OrderBy(b => b.Ranking).Reverse());
+                    // match all author maile
+                    return View(_context.Butterflies.ToList().FindAll(b => ! b.IsProtected)
+                                .OrderBy(b => b.Ranking).Reverse());
                 case 5:
-                    return View(_context.Butterflies.ToList().FindAll(b => b.IsProtected).OrderBy(b => b.Ranking).Reverse());
+                    return View(_context.Butterflies.ToList().OrderBy(b => b.Ranking).Reverse().Take(10));
                 default:
                     return View(_context.Butterflies.ToList());
             }
