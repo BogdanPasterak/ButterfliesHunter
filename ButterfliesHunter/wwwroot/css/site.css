@@ -84,3 +84,6 @@ body {
     font-weight: 900 !important;
     color: rgb(180, 0, 0);
 }
+.bg-bright {
+    background-color: rgba(255,255,255,.8);
+}

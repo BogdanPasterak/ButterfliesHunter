@@ -65,7 +65,7 @@ namespace ButterfliesHunter.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             Debug.WriteLine("URL-------->>>>" + returnUrl);
-            returnUrl = returnUrl ?? Url.Content("~/");
+            returnUrl = Url.Content("~/Hunters/Create");
             if (ModelState.IsValid)
             {
                 var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
