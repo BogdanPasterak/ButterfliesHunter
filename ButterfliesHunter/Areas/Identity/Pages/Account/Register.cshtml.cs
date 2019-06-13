@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -63,6 +64,7 @@ namespace ButterfliesHunter.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+            Debug.WriteLine("URL-------->>>>" + returnUrl);
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {

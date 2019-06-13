@@ -22,9 +22,9 @@ namespace ButterfliesHunter.Controllers
         // GET: Butterflies
         public IActionResult Index(int? id, string author, bool? protect)
         {
-            Debug.WriteLine("-------------------Id->" + id + "<");
-            Debug.WriteLine("---------------Protect->" + protect + "<");
-            Debug.WriteLine("---------------------Author->" + author + "<");
+            //Debug.WriteLine("-------------------Id->" + id + "<");
+            //Debug.WriteLine("---------------Protect->" + protect + "<");
+            //Debug.WriteLine("---------------------Author->" + author + "<");
 
 
 
@@ -42,9 +42,17 @@ namespace ButterfliesHunter.Controllers
                                 .FindAll(b => b.IsProtected == (protect ?? true))
                                 .OrderBy(b => b.Ranking).Reverse());
                 case 4:
-                    int idH = _context.Hunters.FirstOrDefault(h => h.Email == author).HunterId;
-                    return View(_context.Butterflies.ToList().FindAll(b => b.AuthorId == idH)
-                                .OrderBy(b => b.Ranking).Reverse());
+                    Hunter hunter = _context.Hunters.FirstOrDefault(h => h.Email == author);
+                    if (hunter != null)
+                    {
+                        return View(new List<Butterfly>());
+                    }
+                    else
+                    {
+                        return View(_context.Butterflies.ToList()
+                                    .FindAll(b => b.AuthorId == hunter.HunterId)
+                                    .OrderBy(b => b.Ranking).Reverse());
+                    }
                 case 5:
                     return View(_context.Butterflies.ToList().OrderBy(b => b.Ranking).Reverse().Take(10));
                 default:

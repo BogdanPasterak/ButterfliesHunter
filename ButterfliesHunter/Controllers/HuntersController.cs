@@ -23,5 +23,17 @@ namespace ButterfliesHunter.Controllers
             var hunters = _hunterRepository.GetHunters();
             return View(hunters);
         }
+
+        public IActionResult Details(int? id)
+        {
+            return View(_hunterRepository.GetHunter(id??1));
+        }
+
+        [HttpPost]
+        public IActionResult Create([Bind("HunterId,Name,Email,Voted,Display")] Hunter hunter)
+        {
+
+            return View(hunter);
+        }
     }
 }
