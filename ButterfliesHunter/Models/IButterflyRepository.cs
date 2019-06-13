@@ -9,6 +9,6 @@ namespace ButterfliesHunter.Models
     {
         IEnumerable<Butterfly> GetButterflies();
         Butterfly GetButterfly(int id);
-
     }
+
 }

@@ -16,6 +16,5 @@ namespace ButterfliesHunter.Models
 
         public DbSet<Hunter> Hunters { get; set; }
         public DbSet<Butterfly> Butterflies { get; set; }
-
     }
 }

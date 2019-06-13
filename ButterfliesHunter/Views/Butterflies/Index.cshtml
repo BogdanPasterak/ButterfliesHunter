@@ -1,0 +1,84 @@
+﻿@model IEnumerable<ButterfliesHunter.Models.Butterfly>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Index";
+}
+@*
+    <a asp-action="Create">Create New</a>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+*@
+@* Variable to display data *@
+@{List<Butterfly> list = Model.ToList(); }
+@{bool isProtect = list.All(b => b.IsProtected);}
+
+@* Buttons to sort and filter list *@
+<div class="row">
+    <div class="col-6">
+        <h3>Order By ...</h3>
+    </div>
+    <div class="col-6">
+        <h3>Filter ...</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6 btn-group" role="group" aria-label="Order group">
+        <a asp-route-id="0" class="btn btn-info">Ranking</a>
+        <a asp-route-id="1" class="btn btn-info">Name</a>
+        <a asp-route-id="2" class="btn btn-info">Author</a>
+    </div>
+    <div class="col-6 btn-group" role="group" aria-label="Filter group">
+        @if (!isProtect)
+        {
+            <a asp-route-id="3" asp-route-protect="true" class="btn btn-info">Protected</a>
+        }
+        else
+        {
+            <a asp-route-id="3" asp-route-protect="false" class="btn btn-info">Not protected</a>
+        }
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <a asp-route-id="4" asp-route-author="@UserManager.GetUserName(User)" class="btn btn-info">My (@UserManager.GetUserName(User))</a>
+        }
+        <a asp-route-id="5" class="btn btn-info">Top 10</a>
+    </div>
+</div>
+
+@* List of cards *@
+<br/>
+@if (@list.Count > 0)
+{
+    <div class="row">
+        <div class="col-sm-4">
+            <partial name="_Card" model="@list[0]" />
+        </div>
+        <div class="col-sm-4">
+            <partial name="_Card" model="@list[1]" />
+        </div>
+        <div class="col-sm-4">
+            <partial name="_Card" model="@list[2]" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        @for (int i = 3; i < list.Count; i++)
+        {
+            <div class="col-sm-3">
+                <partial name="_Card" model="@list[@i]" />
+            </div>
+        }
+    </div>
+
+}
+else
+{
+    <h2>No Butterfly</h2>
+}
+

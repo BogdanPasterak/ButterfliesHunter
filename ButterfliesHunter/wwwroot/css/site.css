@@ -44,7 +44,7 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
-  background-image: url('/img/bgc3.png');
+  background-image: url('/img/backgroud.png');
   background-repeat: repeat;
 }
 .footer {
@@ -57,6 +57,33 @@ body {
   line-height: 60px; /* Vertically center the text there */
 }
 
-table, form {
+.full-width {
+    width: 100%;
+}
+
+.name-fly {
+    position: absolute;
+    top: 12px;
+    left: 28px;
+    background-color: rgba(255, 255, 255, .6);
+    box-shadow: 0px 0px 10px 10px rgba(255, 255, 255, .6);
+    margin: 0;
+    padding: 0;
+    letter-spacing: 0;
+}
+
+.is-protect {
+    position: absolute;
+    bottom: 82px;
+    right: 24px;
+    background-color: rgba(255, 255, 255, .6);
+    box-shadow: 0px 0px 10px 10px rgba(255, 255, 255, .6);
+    margin: 0;
+    padding: 0;
+    letter-spacing: -1px;
+    font-weight: 900 !important;
+    color: rgb(180, 0, 0);
+}
+.bg-bright {
     background-color: rgba(255,255,255,.8);
 }

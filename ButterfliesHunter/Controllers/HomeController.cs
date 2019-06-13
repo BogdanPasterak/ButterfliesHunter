@@ -12,7 +12,7 @@ namespace ButterfliesHunter.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return Redirect("~/Butterflies/Index");
         }
 
         public IActionResult Privacy()

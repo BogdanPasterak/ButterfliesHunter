@@ -10,24 +10,31 @@ namespace ButterfliesHunter.Models
     public class Butterfly
     {
         [BindNever]
-        public int ButterflyId { get; set; }
+        public int Id { get; set; }
 
-        [Required]
-        [StringLength(100)]
+        [Display(Name = "Butterfly name")]
+        [Required(ErrorMessage = "The name is required")]
+        [MinLength(2, ErrorMessage = "The name must have at least two characters")]
+        [MaxLength(50, ErrorMessage = "Up to 50 characters")]
         public string Name { get; set; }
 
-        [Required]
-        public int AuthorId { get; set; }
+
+        public string Range { get; set; }
 
         [Required]
         public int Ranking { get; set; }
 
         [Required]
-        public bool IsProceted { get; set; }
+        public bool IsProtected { get; set; }
+
+        [Required]
+        public int AuthorId { get; set; }
 
         [Required]
         [StringLength(2000)]
         public string Description { get; set; }
+
+        public string ImgURL { get; set; }
 
     }
 }
