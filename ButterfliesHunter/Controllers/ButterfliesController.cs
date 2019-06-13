@@ -43,7 +43,7 @@ namespace ButterfliesHunter.Controllers
                                 .OrderBy(b => b.Ranking).Reverse());
                 case 4:
                     Hunter hunter = _context.Hunters.FirstOrDefault(h => h.Email == author);
-                    if (hunter != null)
+                    if (hunter == null )
                     {
                         return View(new List<Butterfly>());
                     }
