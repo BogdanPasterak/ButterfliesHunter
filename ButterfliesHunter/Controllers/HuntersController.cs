@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ButterfliesHunter.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Diagnostics;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 
 namespace ButterfliesHunter.Controllers
 {
@@ -14,16 +17,33 @@ namespace ButterfliesHunter.Controllers
     public class HuntersController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly UserManager<IdentityUser> _manager;
 
-        public HuntersController(AppDbContext context)
+        public HuntersController(AppDbContext context, UserManager<IdentityUser> manager)
         {
             _context = context;
+            _manager = manager;
         }
 
         // GET: Hunters
         public async Task<IActionResult> Index()
         {
             return View(await _context.Hunters.ToListAsync());
+        }
+
+        // Get: Hunters/Void/5
+        public IActionResult Void(int id)
+        {
+            //Debug.WriteLine("----------------------------User--->" + User.FindFirst(ClaimTypes.NameIdentifier).Subject.ToString());
+            //Debug.WriteLine("----------------------------User--->" + _manager.GetUserName(User));
+            string email = _manager.GetUserName(User);
+            Hunter hunter = _context.Hunters.FirstOrDefault(h => h.Email == email);
+
+            Debug.WriteLine("----->>>>>" + hunter.Name + "<<<<<");
+
+            return View(_context.Butterflies.FirstOrDefault(b => b.Id == id));
+
+            //return Redirect("~/Butterflies/Details/"+ id.ToString());
         }
 
         // GET: Hunters/Details/5
