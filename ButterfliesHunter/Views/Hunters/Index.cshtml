@@ -9,7 +9,7 @@
 @*<p>
     <a asp-action="Create">Create New</a>
 </p>*@
-<table class="table bg-bright">
+<table class="table bg-bright col-md-6">
     <thead>
         <tr>
             <th>
@@ -27,7 +27,9 @@
 @foreach (Hunter item in Model) {
         <tr>
             <td>
-                @item.Name
+                <a asp-action="Details" asp-route-id="@item.HunterId">
+                    @item.Name
+                </a>
             </td>
             @if (item.Display)
             {
@@ -42,7 +44,7 @@
                 </td>
             }
             <td>
-                <input type="checkbox" class="checkbox" checked="@item.Voted" />
+                @Html.DisplayFor(model => item.Voted)
             </td>
             @*<td>
             <a asp-action="Edit" asp-route-id="@item.HunterId">Edit</a> |

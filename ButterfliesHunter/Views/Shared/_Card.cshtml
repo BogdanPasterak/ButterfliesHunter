@@ -14,4 +14,4 @@
     }
 </div>
 <p>Ranking   : @Model.Ranking.ToString()</p>
-<p>Author ID : @Model.AuthorId.ToString()</p>
+<a asp-controller="Hunters" asp-action="Details" asp-route-id="@Model.AuthorId">Author ID : @Model.AuthorId.ToString()</a>
