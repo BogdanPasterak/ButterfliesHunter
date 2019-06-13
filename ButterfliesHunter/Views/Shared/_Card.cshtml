@@ -5,13 +5,13 @@
 @*
     View for single butterfly card
 *@
-<div>
+<a asp-action="Details" asp-route-id="@Model.Id">
     <h5 class="name-fly">@Model.Name</h5>
     <img src="@Model.ImgURL" alt="Butterfly image" class="img-thumbnail full-width" />
     @if (Model.IsProtected)
     {
         <p class="is-protect">Protected</p>
     }
-</div>
+</a>
 <p>Ranking   : @Model.Ranking.ToString()</p>
 <a asp-controller="Hunters" asp-action="Details" asp-route-id="@Model.AuthorId">Author ID : @Model.AuthorId.ToString()</a>
