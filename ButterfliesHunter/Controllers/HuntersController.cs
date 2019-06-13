@@ -38,10 +38,12 @@ namespace ButterfliesHunter.Controllers
             //Debug.WriteLine("----------------------------User--->" + _manager.GetUserName(User));
             string email = _manager.GetUserName(User);
             Hunter hunter = _context.Hunters.FirstOrDefault(h => h.Email == email);
+            Butterfly butterfly = _context.Butterflies.FirstOrDefault(b => b.Id == id);
+            Vote vote = new Vote() { Butterfly = butterfly, Hunter = hunter };
 
             Debug.WriteLine("----->>>>>" + hunter.Name + "<<<<<");
 
-            return View(_context.Butterflies.FirstOrDefault(b => b.Id == id));
+            return View(vote);
 
             //return Redirect("~/Butterflies/Details/"+ id.ToString());
         }

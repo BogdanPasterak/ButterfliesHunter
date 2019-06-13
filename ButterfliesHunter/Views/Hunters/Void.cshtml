@@ -1,44 +1,34 @@
-﻿@model ButterfliesHunter.Models.Butterfly
+﻿@model ButterfliesHunter.Models.Vote
 
 @{
     ViewData["Title"] = "Void";
 }
 
-<h1>Details of <span class="text-info">@Model.Name</span></h1>
+<h1>Details of <span class="text-info">@Model.Butterfly.Name</span></h1>
 <div class="row">
     <div class="col-lg-8">
-        <img src="@Model.ImgURL" alt="Image of @Model.Name" class="img-fluid full-width" />
+        <img src="@Model.Butterfly.ImgURL" alt="Image of @Model.Butterfly.Name" class="img-fluid full-width" />
     </div>
     <table class="col-lg-4">
         <tr>
             <td>Ranking</td>
-            <td>@Model.Ranking</td>
+            <td>@Model.Butterfly.Ranking</td>
         </tr>
         <tr>
             <td>Range</td>
-            <td>@Model.Range</td>
+            <td>@Model.Butterfly.Range</td>
         </tr>
-        @if (Model.IsProtected)
+        @if (Model.Butterfly.IsProtected)
         {
             <tr><td class="text-danger">Protected</td></tr>
         }
         <tr>
-            <td>Author ID</td>
-            <td>@Model.AuthorId</td>
-        </tr>
-        <tr><td>Description</td></tr>
-        <tr><td colspan="2">@Model.Description</td></tr>
-        <tr>
-            <td class="text-center"><a class="btn btn-dark" asp-action="Index">Back</a></td>
-            <td class="text-center">
-                <a class="btn btn-dark" asp-controller="Hunters" asp-action="Void" asp-route-id="@Model.Id">
-                    Vote
-                </a>
-            </td>
+            <td>Name</td>
+            <td>@Model.Hunter.Name</td>
         </tr>
     </table>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    @*<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>*@
 </div>
