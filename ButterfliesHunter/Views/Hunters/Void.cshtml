@@ -23,11 +23,54 @@
             <tr><td class="text-danger">Protected</td></tr>
         }
         <tr>
-            <td>Name</td>
-            <td>@Model.Hunter.Name</td>
+            <td>Author ID</td>
+            <td>@Model.Butterfly.AuthorId</td>
+        </tr>
+        <tr><td>Description</td></tr>
+        <tr><td colspan="2">@Model.Butterfly.Description</td></tr>
+        <tr>
+
         </tr>
     </table>
 </div>
+<div class="row">
+    
+</div>
+
+<div class="modal" style="display: block" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title bg-shadow">Modal title</h5>
+                <a asp-route-answer="back" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                @if (Model.Hunter.Voted)
+                {
+                    <p>You have already voted</p>
+                }
+                else
+                {
+                    <p>You only have one vote, you definitely want to vote for this butterfly.</p>
+                }
+            </div>
+            <div class="modal-footer">
+                @if (Model.Hunter.Voted)
+                {
+                    <a asp-route-answer="back" class="btn btn-primary">Back</a>
+                }
+                else
+                {
+                    <a asp-route-answer="yes" class="btn btn-secondary">Yes</a>
+                    <a asp-route-answer="back" class="btn btn-secondary">No</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
 <div>
     @*<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>*@

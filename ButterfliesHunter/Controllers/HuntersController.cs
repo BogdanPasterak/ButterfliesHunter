@@ -32,7 +32,7 @@ namespace ButterfliesHunter.Controllers
         }
 
         // Get: Hunters/Void/5
-        public IActionResult Void(int id)
+        public IActionResult Void(int id, string answer = null)
         {
             //Debug.WriteLine("----------------------------User--->" + User.FindFirst(ClaimTypes.NameIdentifier).Subject.ToString());
             //Debug.WriteLine("----------------------------User--->" + _manager.GetUserName(User));
@@ -41,11 +41,21 @@ namespace ButterfliesHunter.Controllers
             Butterfly butterfly = _context.Butterflies.FirstOrDefault(b => b.Id == id);
             Vote vote = new Vote() { Butterfly = butterfly, Hunter = hunter };
 
-            Debug.WriteLine("----->>>>>" + hunter.Name + "<<<<<");
-
-            return View(vote);
-
-            //return Redirect("~/Butterflies/Details/"+ id.ToString());
+            //Debug.WriteLine("----->>>>>" + hunter.Name + "<<<<<");
+            if (answer == null)
+            {
+                return View(vote);
+            }
+            else
+            {
+                if (answer == "yes")
+                {
+                    hunter.Voted = true;
+                    butterfly.Ranking = butterfly.Ranking + 1;
+                    _context.SaveChanges();
+                }
+                return Redirect("~/Butterflies");
+            }
         }
 
         // GET: Hunters/Details/5
@@ -113,7 +123,8 @@ namespace ButterfliesHunter.Controllers
         {
             if (id != hunter.HunterId)
             {
-                return NotFound();
+                //Debug.WriteLine("--------in----------hunter->" + hunter.HunterId + "---" + id + "<-");
+                return Content( "--hunter->" + hunter.HunterId + "<--->" + id + " < -");
             }
 
             if (ModelState.IsValid)
