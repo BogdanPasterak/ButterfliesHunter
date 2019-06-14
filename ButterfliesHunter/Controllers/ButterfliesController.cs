@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ButterfliesHunter.Models;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
+using System.Net;
 
 namespace ButterfliesHunter.Controllers
 {
@@ -79,6 +81,7 @@ namespace ButterfliesHunter.Controllers
         }
 
         // GET: Butterflies/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -89,9 +92,23 @@ namespace ButterfliesHunter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Range,Ranking,IsProtected,AuthorId,Description")] Butterfly butterfly)
+        public async Task<IActionResult> Create([Bind("Id,Name,Range,Ranking,IsProtected,AuthorId,Description,ImgURL")] Butterfly butterfly)
         {
-            if (ModelState.IsValid)
+            if (! System.IO.File.Exists(butterfly.ImgURL)){
+                butterfly.ImgURL = "/img/img00.jpg";
+            }
+            //WebRequest webRequest = WebRequest.Create(butterfly.ImgURL);
+            //WebResponse webResponse;
+            //try
+            //{
+            //    webResponse = webRequest.GetResponse();
+            //}
+            //catch //If exception thrown then couldn't get response from address
+            //{
+            //    butterfly.ImgURL = "/img/img00.jpg";
+            //}
+
+                if (ModelState.IsValid)
             {
                 _context.Add(butterfly);
                 await _context.SaveChangesAsync();
