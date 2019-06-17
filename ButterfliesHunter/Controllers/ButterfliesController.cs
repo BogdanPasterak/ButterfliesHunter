@@ -9,6 +9,8 @@ using ButterfliesHunter.Models;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using System.Net;
+using System.IO;
+using System.Globalization;
 
 namespace ButterfliesHunter.Controllers
 {
@@ -94,21 +96,15 @@ namespace ButterfliesHunter.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Range,Ranking,IsProtected,AuthorId,Description,ImgURL")] Butterfly butterfly)
         {
-            if (! System.IO.File.Exists(butterfly.ImgURL)){
+
+
+            if (!IsImageUrl( butterfly.ImgURL))
+            {
                 butterfly.ImgURL = "/img/img00.jpg";
             }
-            //WebRequest webRequest = WebRequest.Create(butterfly.ImgURL);
-            //WebResponse webResponse;
-            //try
-            //{
-            //    webResponse = webRequest.GetResponse();
-            //}
-            //catch //If exception thrown then couldn't get response from address
-            //{
-            //    butterfly.ImgURL = "/img/img00.jpg";
-            //}
 
-                if (ModelState.IsValid)
+
+            if (ModelState.IsValid)
             {
                 _context.Add(butterfly);
                 await _context.SaveChangesAsync();
@@ -200,6 +196,24 @@ namespace ButterfliesHunter.Controllers
         private bool ButterflyExists(int id)
         {
             return _context.Butterflies.Any(e => e.Id == id);
+        }
+
+        bool IsImageUrl(string URL)
+        {
+            try
+            {
+                var req = (HttpWebRequest)HttpWebRequest.Create(URL);
+                req.Method = "HEAD";
+                using (var resp = req.GetResponse())
+                {
+                    return resp.ContentType.ToLower(CultureInfo.InvariantCulture)
+                               .StartsWith("image/");
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }
