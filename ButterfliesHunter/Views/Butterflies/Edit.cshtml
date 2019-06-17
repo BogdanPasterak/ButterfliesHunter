@@ -18,47 +18,55 @@
 
 @if (admin)
 {
+<form asp-action="Edit">
     <div class="row">
         <div class="col-md-6">
-            <form asp-action="Edit">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="Id" />
-                <div class="form-group">
-                    <label asp-for="Name" class="control-label"></label>
-                    <input asp-for="Name" class="form-control" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Range" class="control-label"></label>
-                    <input asp-for="Range" class="form-control" />
-                    <span asp-validation-for="Range" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Ranking" class="control-label"></label>
-                    <input asp-for="Ranking" class="form-control" />
-                    <span asp-validation-for="Ranking" class="text-danger"></span>
-                </div>
-                <div class="form-group form-check">
-                    <label class="form-check-label">
-                        <input class="form-check-input" asp-for="IsProtected" /> @Html.DisplayNameFor(model => model.IsProtected)
-                    </label>
-                </div>
-                <div class="form-group">
-                    <label asp-for="AuthorId" class="control-label"></label>
-                    <input asp-for="AuthorId" class="form-control" />
-                    <span asp-validation-for="AuthorId" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Description" class="control-label"></label>
-                    <textarea asp-for="Description" class="form-control" rows="5" ></textarea>
-                    <span asp-validation-for="Description" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-primary" />
-                </div>
-            </form>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Range" class="control-label"></label>
+                <input asp-for="Range" class="form-control" />
+                <span asp-validation-for="Range" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ranking" class="control-label"></label>
+                <input asp-for="Ranking" class="form-control" readonly />
+                <span asp-validation-for="Ranking" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsProtected" /> @Html.DisplayNameFor(model => model.IsProtected)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="AuthorId" class="control-label"></label>
+                <input asp-for="AuthorId" class="form-control" readonly />
+                <span asp-validation-for="AuthorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImgURL" class="control-label"></label>
+                <input asp-for="ImgURL" class="form-control" />
+                <span asp-validation-for="ImgURL" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="8"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <img src="@Model.ImgURL" alt="Image" class="img-thumbnail" />
         </div>
     </div>
+</form>
 }
 else
 {

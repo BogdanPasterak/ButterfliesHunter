@@ -9,7 +9,6 @@ using ButterfliesHunter.Models;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using System.Net;
-using System.IO;
 using System.Globalization;
 
 namespace ButterfliesHunter.Controllers
@@ -97,12 +96,10 @@ namespace ButterfliesHunter.Controllers
         public async Task<IActionResult> Create([Bind("Id,Name,Range,Ranking,IsProtected,AuthorId,Description,ImgURL")] Butterfly butterfly)
         {
 
-
             if (!IsImageUrl( butterfly.ImgURL))
             {
                 butterfly.ImgURL = "/img/img00.jpg";
             }
-
 
             if (ModelState.IsValid)
             {
@@ -116,6 +113,7 @@ namespace ButterfliesHunter.Controllers
         // GET: Butterflies/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            Debug.WriteLine("--------------------------Edit--Get");
             if (id == null)
             {
                 return NotFound();
@@ -134,12 +132,22 @@ namespace ButterfliesHunter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Range,Ranking,IsProtected,AuthorId,Description")] Butterfly butterfly)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Range,Ranking,IsProtected,AuthorId,Description,ImgURL")] Butterfly butterfly)
         {
-            if (id != butterfly.Id)
+
+            Debug.WriteLine("--------------------------Edit--Post--->" + id + "<---");
+            //if (id != butterfly.Id)
+            //{
+            //    return NotFound();
+            //}
+            butterfly.Id = id;
+
+            if (!IsImageUrl(butterfly.ImgURL))
             {
-                return NotFound();
+                Debug.WriteLine("--------------------------URL--Post--->" + butterfly.ImgURL + "<---");
+                butterfly.ImgURL = "/img/img00.jpg";
             }
+
 
             if (ModelState.IsValid)
             {
@@ -202,6 +210,10 @@ namespace ButterfliesHunter.Controllers
         {
             try
             {
+                if (URL.StartsWith("/img/img"))
+                {
+                    return true;
+                }
                 var req = (HttpWebRequest)HttpWebRequest.Create(URL);
                 req.Method = "HEAD";
                 using (var resp = req.GetResponse())
