@@ -5,6 +5,8 @@
 @*
     View for single butterfly card
 *@
+
+@{ bool admin = UserManager.GetUserName(User) == "test@a.bcd";}
 <a asp-action="Details" asp-route-id="@Model.Id">
     <h5 class="name-fly">@Model.Name</h5>
     <img src="@Model.ImgURL" alt="Butterfly image" class="img-thumbnail full-width" />
@@ -13,5 +15,15 @@
         <p class="is-protect">Protected</p>
     }
 </a>
-<p>Ranking   : @Model.Ranking.ToString()</p>
-<a asp-controller="Hunters" asp-action="Details" asp-route-id="@Model.AuthorId">Author ID : @Model.AuthorId.ToString()</a>
+<div class="row">
+    <div class="col-7">
+        <p>Ranking   : @Model.Ranking.ToString()</p>
+        <a asp-controller="Hunters" asp-action="Details" asp-route-id="@Model.AuthorId">Author ID : @Model.AuthorId.ToString()</a>
+    </div>
+    @if (admin)
+    {
+        <div class="col-5" style="align-self: center;">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info align-middle">Edit</a>
+        </div>
+    }
+</div>
