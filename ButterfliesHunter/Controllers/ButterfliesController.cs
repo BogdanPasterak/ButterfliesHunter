@@ -25,26 +25,21 @@ namespace ButterfliesHunter.Controllers
         // GET: Butterflies
         public IActionResult Index(int? id, string author, bool? protect)
         {
-            //Debug.WriteLine("-------------------Id->" + id + "<");
-            //Debug.WriteLine("---------------Protect->" + protect + "<");
-            //Debug.WriteLine("---------------------Author->" + author + "<");
-
-
-
+            // id chooses the view method
             switch (id ?? 0)
             {
                 case 0: // default order by Ranking, reverse
                     return View(_context.Butterflies.ToList().OrderBy(b => b.Ranking).Reverse());
-                case 1:
+                case 1: // order by Name
                     return View(_context.Butterflies.ToList().OrderBy(b => b.Name));
-                case 2:
+                case 2: // order by Author
                     return View(_context.Butterflies.ToList().OrderBy(b => b.Ranking).Reverse()
                                 .OrderBy(b => b.AuthorId));
-                case 3:
+                case 3: // filter butterflies by protect or not
                     return View(_context.Butterflies.ToList()
                                 .FindAll(b => b.IsProtected == (protect ?? true))
                                 .OrderBy(b => b.Ranking).Reverse());
-                case 4:
+                case 4:// showing only those who I am an author ( email of the logged in person ) 
                     Hunter hunter = _context.Hunters.FirstOrDefault(h => h.Email == author);
                     if (hunter == null )
                     {
@@ -56,7 +51,7 @@ namespace ButterfliesHunter.Controllers
                                     .FindAll(b => b.AuthorId == hunter.HunterId)
                                     .OrderBy(b => b.Ranking).Reverse());
                     }
-                case 5:
+                case 5: // top 10
                     return View(_context.Butterflies.ToList().OrderBy(b => b.Ranking).Reverse().Take(10));
                 default:
                     return View(_context.Butterflies.ToList());
@@ -89,11 +84,11 @@ namespace ButterfliesHunter.Controllers
         }
 
         // POST: Butterflies/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Range,Ranking,IsProtected,AuthorId,Description,ImgURL")] Butterfly butterfly)
+        public async Task<IActionResult> Create(
+            [Bind("Id,Name,Range,Ranking,IsProtected,AuthorId,Description,ImgURL")]Butterfly butterfly)
         {
 
             if (!IsImageUrl( butterfly.ImgURL))
@@ -113,7 +108,6 @@ namespace ButterfliesHunter.Controllers
         // GET: Butterflies/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            Debug.WriteLine("--------------------------Edit--Get");
             if (id == null)
             {
                 return NotFound();
@@ -132,7 +126,8 @@ namespace ButterfliesHunter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Range,Ranking,IsProtected,AuthorId,Description,ImgURL")] Butterfly butterfly)
+        public async Task<IActionResult> Edit(int id,
+            [Bind("Id,Name,Range,Ranking,IsProtected,AuthorId,Description,ImgURL")] Butterfly butterfly)
         {
 
             Debug.WriteLine("--------------------------Edit--Post--->" + id + "<---");
@@ -207,7 +202,7 @@ namespace ButterfliesHunter.Controllers
             return _context.Butterflies.Any(e => e.Id == id);
         }
 
-        bool IsImageUrl(string URL)
+        private bool IsImageUrl(string URL)
         {
             try
             {

@@ -36,13 +36,12 @@ namespace ButterfliesHunter
 
             services.Configure<IdentityOptions>(options => {
                 options.Password.RequireDigit = false;
-                options.Password.RequiredLength = 4;
+                options.Password.RequiredLength = 6;
                 options.Password.RequireNonAlphanumeric = false;
                 options.User.RequireUniqueEmail = true;
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
             services.AddTransient<IHunterRepository, DbHunterService>();
             services.AddTransient<IButterflyRepository, DbButterflyService>();
 
@@ -60,10 +59,9 @@ namespace ButterfliesHunter
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                // The default HSTS value is 30 days.
                 app.UseHsts();
             }
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
