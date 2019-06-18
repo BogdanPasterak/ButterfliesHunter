@@ -50,7 +50,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="ImgURL" class="control-label"></label>
-                <input asp-for="ImgURL" class="form-control" onkeyup="myF(this)" />
+                <input asp-for="ImgURL" class="form-control image_url_source" onkeyup="dynamicImage()" />
                 <span asp-validation-for="ImgURL" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -60,10 +60,10 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <textarea asp-for="Description" class="form-control" rows="8"></textarea>
+                <textarea asp-for="Description" class="form-control" rows="12"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            <img src="@Model.ImgURL" alt="Image" class="img-thumbnail" id="image_display" />
+            <img src="@Model.ImgURL" alt="Image" class="img-thumbnail image_to_display" />
             
         </div>
     </div>

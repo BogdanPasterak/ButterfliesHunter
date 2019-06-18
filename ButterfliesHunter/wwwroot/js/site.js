@@ -2,33 +2,16 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-function myF(input) {
-    let path = input.value.trim();
+function dynamicImage() {
+    let path = document.querySelector(".image_url_source").value.trim();
 
-    //if (path != "" && imageExists(path))  console.log("OK");
-    let img = document.querySelector("#image_display");
+    let img = document.querySelector(".image_to_display");
 
+    var image = new Image();
 
-
-    checkImage(path,
-        function () { console.log("good"); img.src = path },
-        function () { console.log("bad"); img.src = "/img/img00.jpg"});
-}
-
-function imageExists(image_url) {
-
-    var http = new XMLHttpRequest();
-
-    http.open('HEAD', image_url, false);
-    http.send();
-
-    return http.status != 404;
+    image.onload = () => { img.src = path; }
+    image.onerror = () => { img.src = "/img/img00.jpg"; }
+    image.src = path;
 
 }
 
-function checkImage(imageSrc, good, bad) {
-    var img = new Image();
-    img.onload = good;
-    img.onerror = bad;
-    img.src = imageSrc;
-}
