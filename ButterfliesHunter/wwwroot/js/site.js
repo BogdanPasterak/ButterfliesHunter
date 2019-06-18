@@ -3,15 +3,20 @@
 
 // Write your JavaScript code.
 function dynamicImage() {
-    let path = document.querySelector(".image_url_source").value.trim();
+    try {
+        let path = document.querySelector(".image_url_source").value.trim();
 
-    let img = document.querySelector(".image_to_display");
+        let image = document.querySelector(".image_to_display");
 
-    var image = new Image();
+        image.onerror = () => { image.src = "/img/img00.jpg"; }
+        image.src = path;
 
-    image.onload = () => { img.src = path; }
-    image.onerror = () => { img.src = "/img/img00.jpg"; }
-    image.src = path;
+    } catch (e) {
+        console.log("Problem with load image", e)
+    }
 
 }
 
+// example image from URL
+//http://sandspointpreserveconservancy.org/wp-content/uploads/2018/12/Leopard-Lacewing.jpg
+//https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEKASHSnnVdqzSM8KsQOsCHjL2Hb_zAeeRdm5SYyEJBVhWGMSr
