@@ -43,7 +43,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="ImgURL" class="control-label"></label>
-                <input asp-for="ImgURL" class="form-control" />
+                <input asp-for="ImgURL" class="form-control image_url_source" onkeyup="dynamicImage()" />
                 <span asp-validation-for="ImgURL" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -51,6 +51,7 @@
             </div>
         </form>
     </div>
+    <img src="/img/img00.jpg" class="col-lg-8 img-fluid full-width image_to_display" />
 </div>
 
 <div>
