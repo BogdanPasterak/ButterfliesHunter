@@ -23,5 +23,12 @@ namespace ButterfliesHunter.Models
         {
             return _hunters.OrderBy(h => h.Name);
         }
+
+        public string getName(string email)
+        {
+            Hunter hunter = _hunters.FirstOrDefault(h => h.Email == email);
+
+            return (hunter == null) ? null : hunter.Name ;
+        }
     }
 }

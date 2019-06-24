@@ -1,11 +1,26 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
+@inject IHunterRepository IHunterRepository
+
+
 
 @if (SignInManager.IsSignedIn(User))
 {
+    string hunterName;
+    string bgAdmin = null;
+    @if (User.Identity.Name != "test@a.bcd") // not Admin
+    {
+        hunterName = IHunterRepository.getName(User.Identity.Name.ToString()) ?? "Unknown";
+    }
+    else
+    {
+        hunterName = "Admin";
+        bgAdmin = "bg-danger";
+    }
+
     <li class="nav-item">
-        <a id="manage" class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+        <a id="manage" class="nav-link text-light @bgAdmin" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @hunterName !</a>
     </li>
     <li class="nav-item">
         <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
