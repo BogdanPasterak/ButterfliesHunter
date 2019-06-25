@@ -10,16 +10,20 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using System.Net;
 using System.Globalization;
+using Microsoft.AspNetCore.Identity;
 
 namespace ButterfliesHunter.Controllers
 {
     public class ButterfliesController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly UserManager<IdentityUser> _manager;
 
-        public ButterfliesController(AppDbContext context)
+
+        public ButterfliesController(AppDbContext context, UserManager<IdentityUser> manager)
         {
             _context = context;
+            _manager = manager;
         }
 
         // GET: Butterflies
@@ -95,6 +99,9 @@ namespace ButterfliesHunter.Controllers
             {
                 butterfly.ImgURL = "/img/img00.jpg";
             }
+            string email = _manager.GetUserName(User);
+            butterfly.AuthorId = _context.Hunters.FirstOrDefault(h => h.Email == email).HunterId;
+
 
             if (ModelState.IsValid)
             {
